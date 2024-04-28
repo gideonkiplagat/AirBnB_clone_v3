@@ -8,7 +8,6 @@ from models.state import State
 from datetime import datetime
 import uuid
 
-
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
 @app_views.route('/states/<state_id>/cities/', methods=['GET'])
 def list_cities_of_state(state_id):
@@ -20,7 +19,6 @@ def list_cities_of_state(state_id):
     list_cities = [obj.to_dict() for obj in storage.all("City").values()
                    if state_id == obj.state_id]
     return jsonify(list_cities)
-
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 @app_views.route('/states/<state_id>/cities/', methods=['POST'])
@@ -41,7 +39,6 @@ def create_city(state_id):
     cities.append(new_city.to_dict())
     return jsonify(cities[0]), 201
 
-
 @app_views.route('/cities/<city_id>', methods=['GET'])
 def get_city(city_id):
     '''Retrieves a City object'''
@@ -50,7 +47,6 @@ def get_city(city_id):
     if city_obj == []:
         abort(404)
     return jsonify(city_obj[0])
-
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'])
 def delete_city(city_id):
@@ -65,7 +61,6 @@ def delete_city(city_id):
             storage.delete(obj)
             storage.save()
     return jsonify({}), 200
-
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def updates_city(city_id):

@@ -8,7 +8,6 @@ from models.review import Review
 from datetime import datetime
 import uuid
 
-
 @app_views.route('/places/<place_id>/reviews', methods=['GET'])
 @app_views.route('/places/<place_id>/reviews/', methods=['GET'])
 def list_reviews_of_place(place_id):
@@ -20,7 +19,6 @@ def list_reviews_of_place(place_id):
     list_reviews = [obj.to_dict() for obj in storage.all("Review").values()
                     if place_id == obj.place_id]
     return jsonify(list_reviews)
-
 
 @app_views.route('/places/<place_id>/reviews', methods=['POST'])
 def create_review(place_id):
@@ -48,7 +46,6 @@ def create_review(place_id):
     reviews.append(new_review.to_dict())
     return jsonify(reviews[0]), 201
 
-
 @app_views.route('/reviews/<review_id>', methods=['GET'])
 def get_review(review_id):
     '''Retrieves a Review object '''
@@ -57,7 +54,6 @@ def get_review(review_id):
     if review_obj == []:
         abort(404)
     return jsonify(review_obj[0])
-
 
 @app_views.route('/reviews/<review_id>', methods=['DELETE'])
 def delete_review(review_id):
@@ -72,7 +68,6 @@ def delete_review(review_id):
             storage.delete(obj)
             storage.save()
     return jsonify({}), 200
-
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'])
 def updates_review(review_id):

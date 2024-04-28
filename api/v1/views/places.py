@@ -75,7 +75,6 @@ def create_place(city_id):
     places.append(new_place.to_dict())
     return jsonify(places[0]), 201
 
-
 @app_views.route('/places/<place_id>', methods=['PUT'])
 def updates_place(place_id):
     '''Updates a Place object'''

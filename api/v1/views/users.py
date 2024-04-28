@@ -7,16 +7,14 @@ from models.user import User
 from datetime import datetime
 import uuid
 
-
-@app_views.route('/users/', methods=['GET'])
-@app_views.route('/users', methods=['GET'])
+@app_views.route('/api/users/', methods=['GET'])
+@app_views.route('/api/users', methods=['GET'])
 def list_users():
     '''Retrieves a list of all User objects'''
     list_users = [obj.to_dict() for obj in storage.all("User").values()]
     return jsonify(list_users)
 
-
-@app_views.route('/users/<user_id>', methods=['GET'])
+@app_views.route('/api/v1/users/<user_id>', methods=['GET'])
 def get_user(user_id):
     '''Retrieves a User object'''
     all_users = storage.all("User").values()
@@ -25,8 +23,7 @@ def get_user(user_id):
         abort(404)
     return jsonify(user_obj[0])
 
-
-@app_views.route('/users/<user_id>', methods=['DELETE'])
+@app_views.route('/api/v1/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     '''Deletes a User object'''
     all_users = storage.all("User").values()
@@ -40,8 +37,7 @@ def delete_user(user_id):
             storage.save()
     return jsonify({}), 200
 
-
-@app_views.route('/users/', methods=['POST'])
+@app_views.route('/api/v1/users', methods=['POST'])
 def create_user():
     '''Creates a User'''
     if not request.get_json():
@@ -58,8 +54,7 @@ def create_user():
     users.append(new_user.to_dict())
     return jsonify(users[0]), 201
 
-
-@app_views.route('/users/<user_id>', methods=['PUT'])
+@app_views.route('/api/v1/users/<user_id>', methods=['PUT'])
 def updates_user(user_id):
     '''Updates a User object'''
     all_users = storage.all("User").values()
